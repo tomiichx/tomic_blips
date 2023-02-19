@@ -3,7 +3,7 @@ local organisationMembers = {}
 AddEventHandler('esx:playerLoaded', function(playerId, xPlayer)
     for i = 1, #shared.allowedOrganisations do
         if xPlayer.job.name == shared.allowedOrganisations[i] then
-            organisationMembers[playerId] = { name = GetPlayerName(playerId), job = xPlayer.job.name, source = playerId }
+            organisationMembers[playerId] = { name = GetPlayerName(playerId), job = xPlayer.job.name }
         end
     end
 end)
@@ -16,7 +16,7 @@ AddEventHandler('esx:setJob', function(playerId, job)
     organisationMembers[playerId] = nil
     for i = 1, #shared.allowedOrganisations do
         if job.name == shared.allowedOrganisations[i] then
-            organisationMembers[playerId] = { name = GetPlayerName(playerId), job = job.name, source = playerId }
+            organisationMembers[playerId] = { name = GetPlayerName(playerId), job = job.name }
         end
     end
 end)
@@ -24,6 +24,9 @@ end)
 CreateThread(function()
     while true do
         Wait(shared.refreshRate)
+        for k, v in pairs(organisationMembers) do
+            v.coords = GetEntityCoords(GetPlayerPed(k))
+        end
         TriggerClientEvent('tomic_blips:organisationMembers', -1, organisationMembers)
     end
 end)
