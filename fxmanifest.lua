@@ -6,7 +6,7 @@ lua54 'yes'
 author 'tomiichx'
 description 'Blips for organisation members'
 
-version 'v1.0'
+version 'v1.1'
 
 shared_scripts {
   '@es_extended/imports.lua',
