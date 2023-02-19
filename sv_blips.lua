@@ -24,6 +24,9 @@ end)
 CreateThread(function()
     while true do
         Wait(shared.refreshRate)
+        for k,v in pairs(organisationMembers) do
+            v.coords = GetEntityCoords(GetPlayerPed(k))
+        end
         TriggerClientEvent('tomic_blips:organisationMembers', -1, organisationMembers)
     end
 end)
